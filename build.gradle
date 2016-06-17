@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+repositories {
+   jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    
+    compile 'org.slf4j:slf4j-api:1.7.19'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.19'
+    compile 'ch.qos.logback:logback-classic:1.1.6'
+    compile 'io.netty:netty-all:4.1.1.Final'
+    compile 'org.springframework:spring-context:4.3.0.RELEASE'
+    
+    testCompile 'junit:junit:4.12'
+}
