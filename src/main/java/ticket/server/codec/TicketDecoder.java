@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.CorruptedFrameException;
 import io.netty.handler.codec.TooLongFrameException;
 import ticket.server.helper.TicketHelper;
 import ticket.server.model.Ticket;
@@ -28,14 +29,20 @@ public class TicketDecoder extends ByteToMessageDecoder {
 			throw new TooLongFrameException("Frame too big!");
 		}
 
-		// åŒ…å¤´é•¿åº¦3ï¼šèµ·å§‹ä½+å‘½ä»¤é•¿åº¦+æ•°æ®é•¿åº¦
-		// å‘½ä»¤é•¿åº¦3ï¼šå‘½ä»¤æ ‡å·+é”™è¯¯æ ‡è®°
-		// å¦‚æœbufferä¸­çš„å¯è¯»å­—èŠ‚å¤§äº6ä¸ª
+		// °üÍ·³¤¶È3£ºÆğÊ¼Î»+ÃüÁî³¤¶È+Êı¾İ³¤¶È
+		// ÃüÁî³¤¶È3£ºÃüÁî±êºÅ+´íÎó±ê¼Ç
+		// Èç¹ûbufferÖĞµÄ¿É¶Á×Ö½Ú´óÓÚ6¸ö
 		if (readable > 6) {
-			// æ ‡è®°ï¼ŒæŒ‡å‘å½“å‰æŒ‡é’ˆä½ç½®ï¼Œè¯»å–æ•°æ®æ—¶ä½¿ç”¨
+			// ±ê¼Ç£¬Ö¸Ïòµ±Ç°Ö¸ÕëÎ»ÖÃ£¬¶ÁÈ¡Êı¾İÊ±Ê¹ÓÃ
 			in.markReaderIndex();
 
 			byte start = in.getByte(0);
+
+			if (start != (byte) 0xFC) {
+				logger.info("start marker is error,value is: " + TicketHelper.INSTANCE.byteToHex(start));
+				in.skipBytes(readable);
+				throw new CorruptedFrameException("start marker is error!");
+			}
 			short commandLength = in.getUnsignedByte(1);
 			short dataLength = in.getUnsignedByte(2);
 
@@ -46,20 +53,20 @@ public class TicketDecoder extends ByteToMessageDecoder {
 			byte error = in.getByte(5);
 
 			if (in.readableBytes() < dataLength + 1) {
-				// é‡ç½®æ ‡è®°
+				// ÖØÖÃ±ê¼Ç
 				in.resetReaderIndex();
-				// è¿”å›ï¼Œè¡¨ç¤ºç­‰å¾…
+				// ·µ»Ø£¬±íÊ¾µÈ´ı
 				return;
 			}
 
-			// å¯¹æ•°æ®è¿›è¡Œå¤„ç†
+			// ¶ÔÊı¾İ½øĞĞ´¦Àí
 			byte[] dataBytes = new byte[dataLength];
 			in.getBytes(6, dataBytes);
 
-			// æ ¡éªŒå¼‚æˆ–å€¼
+			// Ğ£ÑéÒì»òÖµ
 			byte rawCheckValue = in.getByte(6 + dataLength);
 
-			// è®¾å¤‡å‘é€åŸå§‹æ•°æ®
+			// Éè±¸·¢ËÍÔ­Ê¼Êı¾İ
 			byte[] rawData = new byte[7 + dataLength];
 			in.readBytes(rawData);
 			logger.info(ByteBufUtil.hexDump(rawData));

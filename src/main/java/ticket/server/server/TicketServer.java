@@ -57,11 +57,11 @@ public class TicketServer {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
 
-							// éƒ½å±äºChannelOutboundHandlerï¼Œé€†åºæ‰§è¡Œ
+							// ¶¼ÊôÓÚChannelOutboundHandler£¬ÄæĞòÖ´ĞĞ
 							ch.pipeline().addLast(eventExecutorGroup, new TicketResponse());
 							ch.pipeline().addLast(eventExecutorGroup, new TicketEncoder());
 
-							// éƒ½å±äºChannelIntboundHandlerï¼ŒæŒ‰ç…§é¡ºåºæ‰§è¡Œ
+							// ¶¼ÊôÓÚChannelIntboundHandler£¬°´ÕÕË³ĞòÖ´ĞĞ
 							ch.pipeline().addLast(new IdleStateHandler(readTimeOut, 0, 0, TimeUnit.SECONDS));
 							ch.pipeline().addLast(new ReadTimeOutHandler());
 							ch.pipeline().addLast(new TicketDecoder());

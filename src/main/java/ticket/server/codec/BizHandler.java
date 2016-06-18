@@ -39,12 +39,12 @@ public class BizHandler extends ChannelInboundHandlerAdapter {
 		response.setCommand(msg.getCommand());
         
 		if(!msg.isCheckPass()){
-			//鏁版嵁鏍￠獙澶辫触
+			//数据校验失败
 			response.setError((byte) 0x05);
 			response.setDataLength((short)0);
 			ctx.write(response);
 		}else if (commandFirst == 0 && commandSecond == 1) {
-			// 璁惧鐧婚檰涓婃姤
+			// 设备登陆上报
 			String deviceId = TicketHelper.INSTANCE.bytesToString(msg.getData());
 			ctx.channel().attr(TicketServer.deviceId).set(deviceId);
 			logger.info("start login,command is: " + commandFirst + commandSecond + ",deviceId is: " + deviceId);
@@ -58,7 +58,7 @@ public class BizHandler extends ChannelInboundHandlerAdapter {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-					// 鏌ヨ璁惧鍙凤紝濡傛灉涓嶅瓨鍦紝杩斿洖 01 璁惧缂栧彿鏃犳晥
+					// 查询设备号，如果不存在，返回 01 设备编号无效
 					boolean deviceIdExist = true;
 					if (deviceIdExist) {
 						response.setError((byte) 0x00);
@@ -72,13 +72,13 @@ public class BizHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		} else if (commandFirst == 0 && commandSecond == 2) {
-			// 璁惧蹇冭烦
+			// 设备心跳
 			logger.info("heart beat,deviceId is: " + ctx.channel().attr(TicketServer.deviceId).get());
 			response.setDataLength((short)0);
 			response.setError((byte) 0x00);
 			ctx.write(response);
 		} else if (commandFirst == 0 && commandSecond == 3) {
-			// 鍒峰崱 鏁版嵁涓婃姤
+			// 刷卡 数据上报
 			String cardId = TicketHelper.INSTANCE.bytesToString(msg.getData());
 			logger.info("send card,deviceId is: " + ctx.channel().attr(TicketServer.deviceId).get() + ",cardId is: "
 					+ cardId);
@@ -91,12 +91,12 @@ public class BizHandler extends ChannelInboundHandlerAdapter {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-					// 濡傛灉鍗″彿涓嶅瓨鍦ㄦ垨璁㈠崟涓嶅瓨鍦紝杩斿洖鍑洪敊鏁版嵁
+					// 如果卡号不存在或订单不存在，返回出错数据
 					boolean hasOrder = true;
 					if (hasOrder) {
 						StringBuilder orderSb = new StringBuilder();
-						orderSb.append("璁㈠崟缂栧彿:111213118876");
-						orderSb.append(" 鎻愯揣鏃堕棿:" + LocalDateTime.now().format(formatter));
+						orderSb.append("订单编号:111213118876");
+						orderSb.append(" 提货时间:" + LocalDateTime.now().format(formatter));
 						byte[] dataBytes = null;
 						try {
 							dataBytes = TicketHelper.INSTANCE.stringToBytes(orderSb.toString());
@@ -116,7 +116,7 @@ public class BizHandler extends ChannelInboundHandlerAdapter {
 				}
 			});
 		} else if (commandFirst == 0 && commandSecond == 4) {
-			// 璁㈠崟瀹屾垚
+			// 订单完成
 			String orderId = TicketHelper.INSTANCE.bytesToString(msg.getData());
 			logger.info("send order,deviceId is: " + ctx.channel().attr(TicketServer.deviceId).get() + ",orderId is: "
 					+ orderId);

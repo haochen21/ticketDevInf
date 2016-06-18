@@ -146,6 +146,7 @@ public class TicketClientServer {
 	}
 
 	public static void main(String[] args) {
+		//String host = "103.21.140.229";
 		String host = "127.0.0.1";
 		int port = Integer.parseInt("9999");
 		TicketClientServer server = new TicketClientServer(host, port);

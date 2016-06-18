@@ -31,7 +31,7 @@ public class TicketEncoder extends ChannelOutboundHandlerAdapter {
 			byteBuf.writeBytes(ticket.getData());
 		}
 
-		// è®¡ç®—å¼‚æˆ–å€¼
+		// ¼ÆËãÒì»òÖµ
 		byte[] rawData = new byte[byteBuf.readableBytes()];
 		byteBuf.getBytes(0, rawData);
 		byte xor = (byte) (0xff & rawData[0] ^ rawData[1]);
