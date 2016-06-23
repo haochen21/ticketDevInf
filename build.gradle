@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName="ticket.server.start.TicketServerStart"
+mainClassName="ticket.devinf.start.TicketServerStart"
 repositories {
    jcenter()
 }
