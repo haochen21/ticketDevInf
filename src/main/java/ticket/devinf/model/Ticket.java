@@ -1,8 +1,8 @@
-package ticket.server.model;
+package ticket.devinf.model;
 
 import java.io.UnsupportedEncodingException;
 
-import ticket.server.helper.TicketHelper;
+import ticket.devinf.helper.TicketHelper;
 
 public class Ticket {
 

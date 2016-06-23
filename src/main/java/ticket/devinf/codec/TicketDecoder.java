@@ -1,4 +1,4 @@
-package ticket.server.codec;
+package ticket.devinf.codec;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
 import io.netty.handler.codec.TooLongFrameException;
-import ticket.server.helper.TicketHelper;
-import ticket.server.model.Ticket;
-import ticket.server.server.TicketServer;
+import ticket.devinf.helper.TicketHelper;
+import ticket.devinf.model.Ticket;
+import ticket.devinf.server.TicketServer;
 
 public class TicketDecoder extends ByteToMessageDecoder {
 

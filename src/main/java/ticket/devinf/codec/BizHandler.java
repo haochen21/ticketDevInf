@@ -1,4 +1,4 @@
-package ticket.server.codec;
+package ticket.devinf.codec;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import ticket.server.helper.TicketHelper;
-import ticket.server.model.Ticket;
-import ticket.server.server.TicketServer;
+import ticket.devinf.helper.TicketHelper;
+import ticket.devinf.model.Ticket;
+import ticket.devinf.server.TicketServer;
 
 public class BizHandler extends ChannelInboundHandlerAdapter {
 

@@ -1,4 +1,4 @@
-package ticket.server.server;
+package ticket.devinf.server;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,11 +19,11 @@ import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
-import ticket.server.codec.BizHandler;
-import ticket.server.codec.ReadTimeOutHandler;
-import ticket.server.codec.TicketDecoder;
-import ticket.server.codec.TicketEncoder;
-import ticket.server.codec.TicketResponse;
+import ticket.devinf.codec.BizHandler;
+import ticket.devinf.codec.ReadTimeOutHandler;
+import ticket.devinf.codec.TicketDecoder;
+import ticket.devinf.codec.TicketEncoder;
+import ticket.devinf.codec.TicketResponse;
 
 @Component
 public class TicketServer {

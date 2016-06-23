@@ -1,4 +1,4 @@
-package ticket.server.config;
+package ticket.devinf.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import ticket.server.server.TicketServer;
+import ticket.devinf.server.TicketServer;
 
 @Configuration
 @PropertySource({ "classpath:/server.properties" })

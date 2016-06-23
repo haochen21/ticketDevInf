@@ -1,4 +1,4 @@
-package ticket.server.codec;
+package ticket.devinf.codec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
-import ticket.server.model.Ticket;
+import ticket.devinf.model.Ticket;
 
 public class TicketEncoder extends ChannelOutboundHandlerAdapter {
 

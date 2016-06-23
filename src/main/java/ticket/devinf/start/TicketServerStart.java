@@ -1,8 +1,8 @@
-package ticket.server.start;
+package ticket.devinf.start;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import ticket.server.config.TicketServerConfig;
+import ticket.devinf.config.TicketServerConfig;
 
 public class TicketServerStart {
 

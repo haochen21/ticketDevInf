@@ -1,4 +1,4 @@
-package ticket.client;
+package ticket.devinf.client;
 
 import java.net.InetSocketAddress;
 import java.util.Random;
@@ -63,7 +63,7 @@ public class TicketClientServer {
 		byteBuf.writeBytes(new byte[] { (byte) 0x00, (byte) 0x01 });
 		byteBuf.writeByte((byte) 0x00);
 		byteBuf.writeBytes(data);
-		// 计算异或值
+		// 计算异或�?
 		byte[] rawData = new byte[byteBuf.readableBytes()];
 		byteBuf.getBytes(0, rawData);
 		byte checkValue = (byte) (0xff & rawData[0] ^ rawData[1]);
@@ -94,7 +94,7 @@ public class TicketClientServer {
 					byteBuf.writeByte((byte) 0x00);
 					byteBuf.writeBytes(new byte[] { (byte) 0x00, (byte) 0x02 });
 					byteBuf.writeByte((byte) 0x00);
-					// 计算异或值
+					// 计算异或�?
 					byte[] rawData = new byte[byteBuf.readableBytes()];
 					byteBuf.getBytes(0, rawData);
 					byte checkValue = (byte) (0xff & rawData[0] ^ rawData[1]);
@@ -130,7 +130,7 @@ public class TicketClientServer {
 					byteBuf.writeBytes(new byte[] { (byte) 0x00, (byte) 0x03 });
 					byteBuf.writeByte((byte) 0x00);
 					byteBuf.writeBytes(data);
-					// 计算异或值
+					// 计算异或�?
 					byte[] rawData = new byte[byteBuf.readableBytes()];
 					byteBuf.getBytes(0, rawData);
 					byte checkValue = (byte) (0xff & rawData[0] ^ rawData[1]);

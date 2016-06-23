@@ -1,4 +1,4 @@
-package ticket.client;
+package ticket.devinf.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
